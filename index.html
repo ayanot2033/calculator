@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>電卓アプリ</title>
+
+    <!-- スタイル -->
+    <link rel="stylesheet" href="src/style.css">
+</head>
+
+<body>
+
+    <!-- 電卓全体 -->
+    <div class="calculator">
+
+        <!-- 表示エリア（結果と履歴） -->
+        <div class="display-area">
+
+            <!-- 計算結果表示 -->
+            <div id="result-display" class="result-display">0</div>
+
+            <!-- 入力履歴表示 -->
+            <div id="history-display" class="history-display"></div>
+        </div>
+
+        <!-- ボタンエリア -->
+        <div class="buttons">
+
+            <!-- 数字ボタン（7〜9） -->
+            <button class="number-button" data-key="7">7</button>
+            <button class="number-button" data-key="8">8</button>
+            <button class="number-button" data-key="9">9</button>
+
+            <!-- 割り算 -->
+            <button class="operator-button" data-key="/">÷</button>
+
+            <!-- 数字ボタン（4〜6） -->
+            <button class="number-button" data-key="4">4</button>
+            <button class="number-button" data-key="5">5</button>
+            <button class="number-button" data-key="6">6</button>
+
+            <!-- 掛け算 -->
+            <button class="operator-button" data-key="*">×</button>
+
+            <!-- 数字ボタン（1〜3） -->
+            <button class="number-button" data-key="1">1</button>
+            <button class="number-button" data-key="2">2</button>
+            <button class="number-button" data-key="3">3</button>
+
+            <!-- 引き算 -->
+            <button class="operator-button" data-key="-">-</button>
+
+            <!-- 0 / 小数点 / クリア -->
+            <button class="number-button" data-key="0">0</button>
+            <button class="decimal-button" data-key=".">.</button>
+            <button class="clear-button" data-key="C">C</button>
+
+            <!-- 足し算 -->
+            <button class="operator-button" data-key="+">+</button>
+
+            <!-- 計算実行 -->
+            <button class="result-button" data-key="=">=</button>
+
+            <!--1つ前に戻る-->
+            <button class="backspace-button" data-key="Backspace">⌫</button>
+
+        </div>
+    </div>
+
+    <!-- エントリーポイント（TS） -->
+    <script type="module" src="/src/main.ts"></script>
+
+</body>
+
+</html>
