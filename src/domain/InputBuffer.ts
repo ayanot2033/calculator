@@ -36,20 +36,20 @@ export class InputBuffer {
     * - マイナス直後の0制御
     * - 先頭0の置き換え処理
     */
-    pushDigit(d: number): void {
+    pushDigit(inputDigit: number): void {
 
 
         if (this.digitCount() >= Config.MAX_DIGITS) return;
 
 
         // 0単体の連打防止
-        if (this.value === "0" && d === 0) {
+        if (this.value === "0" && inputDigit === 0) {
             return;
         }
 
 
         // - のあとに 0 は入力不可
-        if (this.value === "-" && d === 0) {
+        if (this.value === "-" && inputDigit === 0) {
             return;
         }
 
@@ -60,12 +60,12 @@ export class InputBuffer {
             this.value === "0" &&
             !this.value.includes(".")
         ) {
-            this.value = String(d);
+            this.value = String(inputDigit);
             return;
         }
 
 
-            this.value += String(d);
+            this.value += String(inputDigit);
     }
 
 
