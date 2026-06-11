@@ -18,7 +18,7 @@ import type { IDisplay } from "../ui/IDisplay";
 import { InputBuffer } from "../domain/InputBuffer";
 import { Evaluator } from "../domain/Evaluator";
 import { NumberFormatter } from "../domain/NumberFormatter";
-import { Config } from "../config/Config";
+import { ERROR_MESSAGE } from "../config/Config";
 import { CalcState } from "../state/CalcState";
 
 
@@ -198,7 +198,7 @@ export class Calculator {
      // =========================
       console.error(e);
       this.state = CalcState.Error;
-      this.display.renderError(Config.ERROR_MESSAGE);
+      this.display.renderError(ERROR_MESSAGE);
     }
   }
 
@@ -282,7 +282,7 @@ export class Calculator {
         this.formatter.formatForDisplay(right) +
         "=";
       this.display.renderHistory(this.history);
-      this.display.renderError(Config.ERROR_MESSAGE);
+      this.display.renderError(ERROR_MESSAGE);
     }
   }
 
@@ -302,6 +302,7 @@ export class Calculator {
  // ■ 入力クリア（C）
   private handleClear(): void {
     this.buffer.clear();
+    this.state = CalcState.Ready;
     this.display.renderResult("0");
   }
 

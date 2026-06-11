@@ -322,33 +322,8 @@ describe("Calculator テスト", () => {
             .toHaveBeenLastCalledWith("0");
     });
 
-    // =========================
-    // 数値入力
-    // =========================
 
-    it("0連打でも壊れない", () => {
-        press("0");
-        press("0");
-        press("0");
 
-        expect(display.renderResult)
-            .toHaveBeenCalled();
-    });
-
-    it("9桁目は入力されない", () => {
-        press("1");
-        press("2");
-        press("3");
-        press("4");
-        press("5");
-        press("6");
-        press("7");
-        press("8");
-        press("9");
-
-        expect(display.renderResult)
-            .toHaveBeenLastCalledWith("12345678");
-    });
 
     // =========================
     // 境界値

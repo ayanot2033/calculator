@@ -1,5 +1,7 @@
+import { MAX_DIGITS } from "../config/Config";
+
 export class NumberFormatter {
-    private maxDigits: number = 8;
+    private maxDigits: number = MAX_DIGITS;
 
     formatForDisplay(n: number): string {
         if (!isFinite(n)) {

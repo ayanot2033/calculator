@@ -1,4 +1,4 @@
-import { Config } from "../config/Config";
+import { MAX_DIGITS } from "../config/Config";
 /**
 * InputBuffer
 * 電卓の「入力状態」を管理するクラス
@@ -39,7 +39,7 @@ export class InputBuffer {
     pushDigit(inputDigit: number): void {
 
 
-        if (this.digitCount() >= Config.MAX_DIGITS) return;
+        if (this.digitCount() >= MAX_DIGITS) return;
 
 
         // 0単体の連打防止

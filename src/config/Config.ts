@@ -1,4 +1,2 @@
-export class Config {
-    static MAX_DIGITS = 8;
-    static ERROR_MESSAGE = "エラー";
-}
+export const MAX_DIGITS = 8;
+export const ERROR_MESSAGE = "エラー";
