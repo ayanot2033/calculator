@@ -210,6 +210,21 @@ describe("Calculator テスト", () => {
             .toHaveBeenLastCalledWith("12");
     });
 
+
+    it("BackSpaceを連続で押すと最終的に0になる", () => {
+    press("1");
+    press("+");
+    press("2");
+
+    press("Backspace");
+    press("Backspace");
+    press("Backspace");
+
+    expect(display.renderResult)
+        .toHaveBeenLastCalledWith("0");
+});
+
+
     it("全て削除すると0に戻る", () => {
         press("1");
         press("Backspace");

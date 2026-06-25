@@ -141,6 +141,7 @@ export class Calculator {
        // 負の符号入力
         if (key.kind === "op" && key.value === "-") {
           this.buffer.pushMinus();
+          this.state = CalcState.InputtingFirst;
           this.display.renderResult("-");
           this.display.renderHistory("");
           return;
@@ -163,6 +164,14 @@ export class Calculator {
       switch (key.kind) {
         case "digit":
           this.buffer.pushDigit(key.value);
+
+          if (this.operator === null) {
+            this.state = CalcState.InputtingFirst;
+          } else {
+            this.state = CalcState.InputtingSecond;
+          }
+
+
           this.display.renderResult(this.buffer.getRawValue());
           return;
 
@@ -203,7 +212,7 @@ export class Calculator {
   }
 
 
- // ■ 演算子入力時の処理
+  // ■ 演算子入力時の処理
   private handleOperator(op: Operation): void {
    // 演算子連打時は上書き
     if (this.buffer.isEmpty() && this.left !== null) {
@@ -238,7 +247,7 @@ export class Calculator {
   }
 
 
- // ■ イコール（計算実行）
+  // ■ イコール（計算実行）
   private handleEqual(): void {
     if (this.left === null || this.operator === null || this.buffer.isEmpty()) return;
 
@@ -309,35 +318,67 @@ export class Calculator {
 
  // ■ バックスペース（1文字削除）
   private handleBackSpace(): void {
+
     // エラー中は無効
     if (this.state === CalcState.Error) {
         return;
     }
 
+    if (this.state === CalcState.Ready) {
+      this.display.renderResult("0");
+      return;
+    }
+
+    if (this.state === CalcState.ResultShown) {
+      this.handleAllClear();
+      return;
+    }
+
+    // ① 右辺入力中
+    if (this.state === CalcState.InputtingSecond) {
+      this.buffer.backspace();
+
+    if (this.buffer.isEmpty()) {
+      this.state = CalcState.OperatorEntered; // ★ここ重要
+    }
+
+      this.display.renderResult(
+      this.buffer.isEmpty() ? "0" : this.buffer.getRawValue()
+      );
+      return;
+    }
+
+
     // 演算子入力直後 → 演算子を消して左辺に戻す
     if (this.state === CalcState.OperatorEntered) {
         this.operator = null;
-        this.state = CalcState.Ready;
+        this.state = CalcState.InputtingFirst;
 
         const displayValue =
-            this.left !== null ? String(this.left) : "0";
-
+        this.left !== null ? String(this.left) : "0";
         this.display.renderHistory(displayValue);
         this.display.renderResult(displayValue);
         return;
     }
 
-    // 入力を1文字削除
-    this.buffer.backspace();
+    // ② 左辺入力中
+    if (this.state === CalcState.InputtingFirst) {
+      this.buffer.backspace();
 
-    const value = this.buffer.getRawValue();
+      const value = this.buffer.getRawValue();
 
-    // ここが重要：空なら必ず "0"
     if (value === "") {
+      this.state = CalcState.Ready; 
+      this.display.renderHistory("");
       this.display.renderResult("0");
       return;
     }
 
-    this.display.renderResult(value);
+      this.display.renderHistory("");
+      this.display.renderResult(value);
+      return;
+    }
+
+    
   }
 }
