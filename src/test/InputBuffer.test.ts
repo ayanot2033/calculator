@@ -149,7 +149,6 @@ it("文字列を数値に変換できる", () => {
     expect(buffer.toNumber()).toBe(12);
 });
 
-
 it("空文字は0になる", () => {
     const buffer = new InputBuffer();
 
