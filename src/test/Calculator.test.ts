@@ -308,18 +308,49 @@ describe("Calculator テスト", () => {
             .toHaveBeenLastCalledWith("0");
     });
 
+    it("エラー中は小数点入力を無視する", () => {
+        press("1");
+        press("/");
+        press("0");
+        press("=");
+        
+        const before = display.renderResult.mock.calls.length;
+
+        press(".");
+
+        expect(display.renderResult.mock.calls.length).toBe(before);
+    });
+
+
+
+    it("エラー中は演算子入力を無視する", () => {
+        press("1");
+        press("/");
+        press("0");
+        press("=");
+        
+        const before = display.renderResult.mock.calls.length;
+
+        press("+");
+
+        expect(display.renderResult.mock.calls.length).toBe(before);
+    });
+
+
+    
+
+
     it("エラー中のBackSpaceは無効", () => {
         press("1");
         press("/");
         press("0");
         press("=");
 
-        vi.clearAllMocks();
+        const before = display.renderResult.mock.calls.length;
 
         press("Backspace");
 
-        expect(display.renderResult)
-            .not.toHaveBeenCalled();
+        expect(display.renderResult.mock.calls.length).toBe(before);
     });
 
     // =========================
@@ -363,7 +394,7 @@ describe("Calculator テスト", () => {
     });
 
     // =========================
-    // 追加チェック
+    // 更新
     // =========================
 
     it("履歴が更新される", () => {
@@ -374,13 +405,4 @@ describe("Calculator テスト", () => {
             .toHaveBeenLastCalledWith("5 +");
     });
 
-    it("renderResultは呼ばれる", () => {
-        press("1");
-        press("+");
-        press("2");
-        press("=");
-
-        expect(display.renderResult)
-            .toHaveBeenCalled();
-    });
 });

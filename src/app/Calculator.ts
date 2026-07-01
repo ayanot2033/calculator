@@ -111,17 +111,7 @@ export class Calculator {
           return;
         }
 
-
-       // エラー状態で小数点入力
-        if (key.kind === "decimal") {
-          this.handleAllClear();
-          this.buffer.pushDecimal();
-          this.display.renderResult(this.buffer.getRawValue());
-          return;
-        }
-
-
-       // + × ÷ = は無視
+       //小数点 + × ÷ = は無視
         return;
       }
 
